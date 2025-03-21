@@ -1,0 +1,43 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+.wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: whitesmoke;
+}
+.header {
+  height: 3vh;
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+}
+.container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-auto-rows: auto;
+  grid-template-areas:
+    "co co co ab"
+    "co co co ar"
+    "co co co el"
+    "su su su su";
+  padding: 2%;
+}
+
+#cont {
+  grid-area: co;
+}
+#sub-heading {
+  grid-area: su;
+}
+#ab {
+  grid-area: ab;
+}
+#ar {
+  grid-area: ar;
+}
+#else {
+  grid-area: el;
+}

@@ -1,0 +1,94 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.wrappr{
+    height: 100%;
+    width: 100%;
+}
+.container{
+    padding: 2%;
+    height: auto;
+    background-color:whitesmoke;    
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.header p, span{
+    color:#D9437A;   
+}
+.card {
+    display: grid;
+    grid-template-columns: repeat(2, 35rem);
+    grid-template-rows: repeat(3,13rem);
+    justify-content: center;
+    gap: 1rem;
+    height: 100vh;
+    padding: 1%;
+    grid-template-areas:
+    "left1 right1"
+    "left2 right2"
+    "left3 right3";
+    
+}
+
+#left1{
+    grid-area: left1;
+}
+#left2{
+    grid-area: left2;
+}
+#left3{
+    grid-area: left3;
+}
+#right1{
+    grid-area: right1;
+}
+#right2{
+    grid-area: right2;
+}
+#right3{
+    grid-area: right3;
+}
+.blue-text {
+    color: #DBF227;
+}
+.green-text{
+    color: #0CF25D;
+}
+
+.element{
+    display: flex;
+    flex-direction: column;
+    border: 0.0625rem solid black;
+    padding: 1%;
+    background-color: #D9437A;
+    box-shadow: -0.3rem 0.3rem ;
+    height: 100%;
+}
+.element h1{
+    display: flex;
+    padding-top: 5% ;  
+    color: #FFFFFF;
+}
+.element a{
+    margin-top: auto;
+    color: whitesmoke;
+    display: block;
+}
+.element p{
+    color: black;
+}
+.element a:hover{
+    color: #DBF227;
+    cursor:pointer;
+}
+.element:hover{
+    background-color: #e06290;
+    cursor: pointer;  
+}
+
