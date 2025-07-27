@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
-.hello {
-    color: black;
-    font-size: larger;
-    font-weight: 500;
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@theme{
+    --color-choclate: #86363c;
+    --color-lightblue: #305eff;
+    --font-family : "Mulish", sans-serif;
 }
