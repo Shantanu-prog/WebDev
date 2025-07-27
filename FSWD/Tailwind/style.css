@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.hello {
+    color: black;
+    font-size: larger;
+    font-weight: 500;
+}
