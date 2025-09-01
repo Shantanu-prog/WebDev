@@ -27,20 +27,35 @@
 
 //creating an Array
 
-let numbers = [1, 4, 5, 7];
+// let numbers = [1, 4, 5, 7];
 
-console.log(numbers);
+// console.log(numbers);
 
-//searching or finding
+// //searching or finding
 
-console.log(numbers);
+// console.log(numbers);
 
-console.log(numbers.indexOf(4));
+// console.log(numbers.indexOf(4));
 
-//we want to check if a number exist in an arrary
-if(numbers.indexOf(5) != -1)
-    console.log("present"); 
+// //we want to check if a number exist in an arrary
+// if(numbers.indexOf(5) != -1)
+//     console.log("present"); 
 
-console.log(numbers.includes(7));
+// console.log(numbers.includes(7));
 
-console.log(numbers.indexOf(4, 0));
+// console.log(numbers.indexOf(4, 0));
+
+let courses = [
+    {no:1, name: 'shan'},
+    {no:2, naam: 'kittu'}
+];  
+
+console.log(courses);
+
+// console.log( course.indexOf({no:1, naam:'shan'}));
+
+let course = courses.find(function(course){
+    return course.naam == 'shan';
+})
+
+console.log(course);   
