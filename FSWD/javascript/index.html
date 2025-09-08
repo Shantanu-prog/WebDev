@@ -7,10 +7,17 @@
   </head>
   <body>
     <button onclick="addToCart()">Add to Cart</button>
+    <button onclick = "BuyNow()"> Buy Now </button>                
 
     <script>
       function addToCart() {
         alert("✅ Item added to cart!")
+      }
+      function BuyNow(){
+        console.log("Loading...");
+      setTimeout(() => {
+        alert("purchased");
+        }, 1500);
       }
     </script>
   </body>
