@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareerCompass - Your Personalized Career Advisor</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="container">
+        <div class="logo">🎯 CareerCompass</div>
+        <ul class="nav-links">
+          <li><a href="#" onclick="showSection('home')">Home</a></li>
+          <li><a href="#" onclick="showSection('profile')">Profile</a></li>
+          <li>
+            <a href="#" onclick="showSection('assessment')">Assessment</a>
+          </li>
+          <li><a href="#" onclick="showSection('results')">Results</a></li>
+          <li><a href="#" onclick="showSection('resources')">Resources</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+      <div class="container">
+        <h1>Discover Your Perfect Career Path</h1>
+        <p>
+          AI-powered personalized career guidance for students in Jammu &
+          Kashmir
+        </p>
+        <button class="cta-button" onclick="startJourney()">
+          Start Your Journey
+        </button>
+      </div>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="profile-form" id="profile">
+      <h2 style="color: #667eea; margin-bottom: 30px">Create Your Profile</h2>
+      <form id="profileForm">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="fullName" required />
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required />
+        </div>
+
+        <div class="form-group">
+          <label>Current Education Level</label>
+          <select id="education">
+            <option value="">Select...</option>
+            <option value="10th">10th Standard</option>
+            <option value="12th">12th Standard</option>
+            <option value="graduation">Graduation</option>
+            <option value="postgrad">Post Graduation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Stream/Field</label>
+          <select id="stream">
+            <option value="">Select...</option>
+            <option value="science">Science</option>
+            <option value="commerce">Commerce</option>
+            <option value="arts">Arts</option>
+            <option value="engineering">Engineering</option>
+            <option value="medical">Medical</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Interests (Select multiple)</label>
+          <div class="skills-grid">
+            <div class="skill-checkbox">
+              <input type="checkbox" id="tech" value="technology" />
+              <label for="tech">Technology</label>
+            </div>
+            <div class="skill-checkbox">
+              <input type="checkbox" id="med" value="medicine" />
+              <label for="med">Medicine</label>
+            </div>
+            <div class="skill-checkbox">
+              <input type="checkbox" id="bus" value="business" />
+              <label for="bus">Business</label>
+            </div>
+            <div class="skill-checkbox">
+              <input type="checkbox" id="art" value="arts" />
+              <label for="art">Arts & Design</label>
+            </div>
+            <div class="skill-checkbox">
+              <input type="checkbox" id="edu" value="education" />
+              <label for="edu">Education</label>
+            </div>
+            <div class="skill-checkbox">
+              <input type="checkbox" id="eng" value="engineering" />
+              <label for="eng">Engineering</label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="cta-button" style="width: 100%">
+          Save Profile & Start Assessment
+        </button>
+      </form>
+    </div>
+
+    <!-- Assessment Container -->
+    <div class="assessment-container" id="assessment">
+      <div class="progress-bar">
+        <div class="progress" id="progressBar" style="width: 20%"></div>
+      </div>
+
+      <div class="question" id="questionContainer">
+        <h3 id="questionText">What type of work environment do you prefer?</h3>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'office')">
+            Office/Corporate Setting
+          </div>
+          <div class="option" onclick="selectOption(this, 'outdoor')">
+            Outdoor/Field Work
+          </div>
+          <div class="option" onclick="selectOption(this, 'home')">
+            Work from Home/Remote
+          </div>
+          <div class="option" onclick="selectOption(this, 'mixed')">
+            Mixed Environment
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="display: flex; justify-content: space-between; margin-top: 30px">
+        <button class="cta-button" onclick="previousQuestion()">
+          Previous
+        </button>
+        <button class="cta-button" onclick="nextQuestion()">Next</button>
+      </div>
+    </div>
+
+    <!-- Results Container -->
+    <div class="results-container" id="results">
+      <h2 style="color: #667eea; margin-bottom: 30px">
+        Your Personalized Career Recommendations
+      </h2>
+
+      <div class="career-card">
+        <span class="match-score">95% Match</span>
+        <h3>Software Developer</h3>
+        <p>
+          <strong>Description:</strong> Design, develop, and maintain software
+          applications
+        </p>
+        <p>
+          <strong>Required Skills:</strong> Programming, Problem-solving, Logic
+        </p>
+        <p>
+          <strong>Education Path:</strong> B.Tech in Computer Science →
+          Internships → Industry Certifications
+        </p>
+        <p><strong>Average Salary:</strong> ₹6-15 LPA (Entry to Mid-level)</p>
+        <p><strong>Top Colleges:</strong> IITs, NITs, BITS Pilani</p>
+      </div>
+
+      <div class="career-card">
+        <span class="match-score">88% Match</span>
+        <h3>Data Scientist</h3>
+        <p>
+          <strong>Description:</strong> Analyze complex data to help companies
+          make better decisions
+        </p>
+        <p>
+          <strong>Required Skills:</strong> Statistics, Machine Learning,
+          Python/R
+        </p>
+        <p>
+          <strong>Education Path:</strong> B.Tech/B.Sc → M.Tech/M.Sc in Data
+          Science
+        </p>
+        <p><strong>Average Salary:</strong> ₹8-20 LPA</p>
+        <p><strong>Top Colleges:</strong> ISI, IITs, IIMs</p>
+      </div>
+
+      <div class="career-card">
+        <span class="match-score">82% Match</span>
+        <h3>Web Developer</h3>
+        <p>
+          <strong>Description:</strong> Create and maintain websites and web
+          applications
+        </p>
+        <p>
+          <strong>Required Skills:</strong> HTML/CSS, JavaScript, Backend
+          frameworks
+        </p>
+        <p>
+          <strong>Education Path:</strong> Any degree + Web Development
+          Bootcamps/Courses
+        </p>
+        <p><strong>Average Salary:</strong> ₹4-12 LPA</p>
+        <p><strong>Resources:</strong> FreeCodeCamp, Coursera, Udemy</p>
+      </div>
+
+      <button class="cta-button" onclick="downloadReport()">
+        Download Detailed Report
+      </button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
