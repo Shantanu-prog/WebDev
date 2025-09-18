@@ -1,0 +1,289 @@
+// Application State Management
+const appState = {
+    currentMood: null,
+    journalEntries: [],
+    moodHistory: [],
+    achievements: {
+        firstSteps: false,
+        weekWarrior: false,
+        moodMaster: false,
+        zenMaster: false,
+        journalPro: false
+    },
+    stats: {
+        streakDays: 0,
+        totalEntries: 0,
+        moodCheckins: 0,
+        activitiesCompleted: 0,
+        lastVisit: null
+    }
+};
+
+// AI Companion responses with sentiment analysis simulation
+const aiResponses = {
+    positive: [
+        "I'm so glad to hear you're feeling positive today! That energy is wonderful. What's been contributing to your good mood?",
+        "It sounds like you're in a great headspace! How can we build on this positive momentum?",
+        "Your optimism is inspiring! What would you like to focus on today to maintain these good feelings?"
+    ],
+    neutral: [
+        "Thank you for sharing with me. How has your day been treating you overall?",
+        "I'm here to listen and support you. What's on your mind today?",
+        "Sometimes neutral days are just as important. What would help you feel more engaged today?"
+    ],
+    negative: [
+        "I hear that you're going through a tough time right now. Your feelings are completely valid, and I'm here to support you.",
+        "It takes courage to share when you're struggling. What kind of support would be most helpful for you today?",
+        "I'm sorry you're experiencing this difficulty. Let's work together to find some coping strategies that might help."
+    ],
+    anxiety: [
+        "Anxiety can feel overwhelming, but you're not alone in this. Let's try some grounding techniques together.",
+        "I understand that anxiety is challenging. Would you like to try some breathing exercises or talk about what's triggering these feelings?",
+        "Your anxiety is valid, and there are ways to manage it. What usually helps you feel more calm and centered?"
+    ],
+    crisis: [
+        "I'm very concerned about what you're sharing. Your safety is the most important thing right now. Please consider reaching out to a crisis counselor immediately.",
+        "Thank you for trusting me with these difficult feelings. I strongly encourage you to speak with a mental health professional right away.",
+        "These thoughts are serious, and you deserve immediate professional support. Please don't wait - reach out to our crisis resources now."
+    ]
+};
+
+// Initialize app on load
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+    }, 1500);
+    
+    loadFromStorage();
+    updateGreeting();
+    updateStats();
+    checkAchievements();
+    setupAICompanion();
+});
+
+// Storage Functions
+function loadFromStorage() {
+    try {
+        const saved = {
+            journalEntries: JSON.parse(localStorage.getItem('journalEntries') || '[]'),
+            moodHistory: JSON.parse(localStorage.getItem('moodHistory') || '[]'),
+            achievements: JSON.parse(localStorage.getItem('achievements') || JSON.stringify(appState.achievements)),
+            stats: JSON.parse(localStorage.getItem('stats') || JSON.stringify(appState.stats))
+        };
+        
+        Object.assign(appState, saved);
+        
+        // Update streak
+        const today = new Date().toDateString();
+        if (appState.stats.lastVisit !== today) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (appState.stats.lastVisit === yesterday.toDateString()) {
+                appState.stats.streakDays++;
+            } else if (appState.stats.lastVisit !== today) {
+                appState.stats.streakDays = 1;
+            }
+            
+            appState.stats.lastVisit = today;
+            saveToStorage();
+        }
+        
+        displayJournalEntries();
+    } catch (error) {
+        console.error('Error loading from storage:', error);
+        showToast('Error loading saved data. Starting fresh.');
+    }
+}
+
+function saveToStorage() {
+    try {
+        localStorage.setItem('journalEntries', JSON.stringify(appState.journalEntries));
+        localStorage.setItem('moodHistory', JSON.stringify(appState.moodHistory));
+        localStorage.setItem('achievements', JSON.stringify(appState.achievements));
+        localStorage.setItem('stats', JSON.stringify(appState.stats));
+    } catch (error) {
+        console.error('Error saving to storage:', error);
+        showToast('Error saving data. Please check your browser settings.');
+    }
+}
+
+// Greeting based on time
+function updateGreeting() {
+    const hour = new Date().getHours();
+    let greeting = '';
+    let emoji = '';
+    
+    if (hour < 12) {
+        greeting = 'Good Morning!';
+        emoji = '🌞';
+    } else if (hour < 17) {
+        greeting = 'Good Afternoon!';
+        emoji = '☀️';
+    } else {
+        greeting = 'Good Evening!';
+        emoji = '🌙';
+    }
+    
+    const greetingElement = document.getElementById('greeting');
+    if (greetingElement) {
+        greetingElement.textContent = `${greeting} ${emoji}`;
+    }
+}
+
+// Section Navigation
+function hideAllSections() {
+    const sections = [
+        'dashboard', 'moodTracker', 'activitiesSection', 
+        'journalSection', 'resourcesSection', 'progressSection',
+        'peerSupportSection', 'consultationSection', 'assessmentSection'
+    ];
+    
+    sections.forEach(sectionId => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.style.display = 'none';
+        }
+    });
+}
+
+function goHome() {
+    hideAllSections();
+    const dashboard = document.getElementById('dashboard');
+    if (dashboard) {
+        dashboard.style.display = 'grid';
+    }
+}
+
+function showMoodTracker() {
+    hideAllSections();
+    const moodTracker = document.getElementById('moodTracker');
+    if (moodTracker) {
+        moodTracker.style.display = 'block';
+        drawMoodChart();
+    }
+}
+
+function showActivities() {
+    hideAllSections();
+    const activitiesSection = document.getElementById('activitiesSection');
+    if (activitiesSection) {
+        activitiesSection.style.display = 'block';
+    }
+}
+
+function showJournal() {
+    hideAllSections();
+    const journalSection = document.getElementById('journalSection');
+    if (journalSection) {
+        journalSection.style.display = 'block';
+        journalSection.classList.add('active');
+    }
+}
+
+function showResources() {
+    hideAllSections();
+    const resourcesSection = document.getElementById('resourcesSection');
+    if (resourcesSection) {
+        resourcesSection.style.display = 'block';
+    }
+}
+
+function showProgress() {
+    hideAllSections();
+    const progressSection = document.getElementById('progressSection');
+    if (progressSection) {
+        progressSection.style.display = 'block';
+        updateStats();
+    }
+}
+
+function showPeerSupport() {
+    hideAllSections();
+    const peerSection = document.getElementById('peerSupportSection');
+    if (peerSection) {
+        peerSection.style.display = 'block';
+    }
+}
+
+function showConsultation() {
+    hideAllSections();
+    const consultSection = document.getElementById('consultationSection');
+    if (consultSection) {
+        consultSection.style.display = 'block';
+    }
+}
+
+function showAssessment() {
+    hideAllSections();
+    const assessmentSection = document.getElementById('assessmentSection');
+    if (assessmentSection) {
+        assessmentSection.style.display = 'block';
+    }
+}
+
+// Mood Tracker Functions
+function selectMood(emoji, mood) {
+    // Remove previous selection
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    // Add selection to clicked button
+    event.target.closest('.mood-btn').classList.add('selected');
+    
+    // Save mood
+    const moodEntry = {
+        emoji,
+        mood,
+        date: new Date().toISOString()
+    };
+    
+    appState.moodHistory.push(moodEntry);
+    appState.currentMood = mood;
+    appState.stats.moodCheckins++;
+    
+    saveToStorage();
+    showToast(`Mood tracked: ${mood} ${emoji}`);
+    checkAchievements();
+    drawMoodChart();
+    
+    // Trigger AI response based on mood
+    triggerAIMoodResponse(mood);
+}
+
+function drawMoodChart() {
+    const canvas = document.getElementById('moodChart');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width = canvas.offsetWidth;
+    const height = canvas.height = canvas.offsetHeight;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+    
+    // Get last 7 days of mood data
+    const last7Days = appState.moodHistory.slice(-7);
+    
+    if (last7Days.length === 0) {
+        ctx.fillStyle = '#6b7280';
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No mood data yet. Track your mood to see the chart!', width / 2, height / 2);
+        return;
+    }
+    
+    // Draw simple bar chart
+    const barWidth = width / 7;
+    const moodValues = {
+        'Happy': 5,
+        'Calm': 4,
+        'Tired': 3,
+        'Anxious': 2,
+        'Sad': 1,
+        'Angry': 0
+    };
+    
+    last7Days.forEach((entry, i) => {
+        const value =

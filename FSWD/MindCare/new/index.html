@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindfulSpace - Your Mental Health Companion</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+      <div class="loader-content">
+        <div class="pulse"></div>
+        <h2>Welcome to MindfulSpace</h2>
+        <p>Loading your safe space...</p>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="logo" onclick="goHome()">🧠 MindfulSpace</div>
+        <ul class="nav-links">
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#mood">Mood Tracker</a></li>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ul>
+        <button class="emergency-btn" onclick="showEmergencyModal()">
+          📞 Crisis Helpline
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Welcome Section -->
+      <section class="welcome-section">
+        <div class="greeting" id="greeting">Good Morning! 🌞</div>
+        <h1>Welcome to Your Safe Space</h1>
+        <p>
+          Track your mental wellness journey, find support, and discover
+          resources tailored just for you.
+        </p>
+      </section>
+
+      <!-- Dashboard Grid -->
+      <section class="dashboard" id="dashboard">
+        <div class="card" onclick="showMoodTracker()">
+          <div class="card-icon">😊</div>
+          <h3>Daily Mood Check-In</h3>
+          <p>
+            How are you feeling today? Track your emotions and see patterns over
+            time.
+          </p>
+        </div>
+
+        <div class="card" onclick="showActivities()">
+          <div class="card-icon">🧘</div>
+          <h3>Stress Relief Activities</h3>
+          <p>
+            Breathing exercises, meditation, and calming techniques to help you
+            relax.
+          </p>
+        </div>
+
+        <div class="card" onclick="showJournal()">
+          <div class="card-icon">📝</div>
+          <h3>Private Journal</h3>
+          <p>Express your thoughts and feelings in a safe, private space.</p>
+        </div>
+
+        <div class="card" onclick="showResources()">
+          <div class="card-icon">📚</div>
+          <h3>Mental Health Resources</h3>
+          <p>Articles, videos, and guides to support your mental wellness.</p>
+        </div>
+
+        <div class="card" onclick="showProgress()">
+          <div class="card-icon">🏆</div>
+          <h3>Your Progress</h3>
+          <p>
+            View your achievements, streaks, and wellness journey milestones.
+          </p>
+        </div>
+
+        <div class="card" onclick="toggleChat()">
+          <div class="card-icon">💬</div>
+          <h3>AI Support Chat</h3>
+          <p>Talk to our AI companion for immediate support and guidance.</p>
+        </div>
+
+        <div class="card" onclick="showPeerSupport()">
+          <div class="card-icon">👥</div>
+          <h3>Peer Support Groups</h3>
+          <p>Connect anonymously with fellow students facing similar challenges.</p>
+        </div>
+
+        <div class="card" onclick="showConsultation()">
+          <div class="card-icon">🧑‍⚕️</div>
+          <h3>Professional Consultation</h3>
+          <p>Book confidential sessions with licensed mental health professionals.</p>
+        </div>
+
+        <div class="card" onclick="showAssessment()">
+          <div class="card-icon">📋</div>
+          <h3>Self-Assessment Tools</h3>
+          <p>Take standardized assessments to understand your mental health better.</p>
+        </div>
+      </section>
+
+      <!-- Mood Tracker Section -->
+      <section class="mood-tracker" id="moodTracker" style="display: none">
+        <h2>How are you feeling today?</h2>
+        <div class="mood-options">
+          <button class="mood-btn" onclick="selectMood('😊', 'Happy')">
+            😊
+            <span class="mood-label">Happy</span>
+          </button>
+          <button class="mood-btn" onclick="selectMood('😌', 'Calm')">
+            😌
+            <span class="mood-label">Calm</span>
+          </button>
+          <button class="mood-btn" onclick="selectMood('😔', 'Sad')">
+            😔
+            <span class="mood-label">Sad</span>
+          </button>
+          <button class="mood-btn" onclick="selectMood('😰', 'Anxious')">
+            😰
+            <span class="mood-label">Anxious</span>
+          </button>
+          <button class="mood-btn" onclick="selectMood('😤', 'Angry')">
+            😤
+            <span class="mood-label">Angry</span>
+          </button>
+          <button class="mood-btn" onclick="selectMood('😴', 'Tired')">
+            😴
+            <span class="mood-label">Tired</span>
+          </button>
+        </div>
+        <div class="chart-container">
+          <canvas id="moodChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Activities Section -->
+      <section id="activitiesSection" style="display: none">
+        <h2>Stress Relief Activities</h2>
+        <div class="activities-grid">
+          <div class="activity-card" onclick="startBreathing()">
+            <div class="activity-icon">🫁</div>
+            <h4>Breathing Exercise</h4>
+            <p>4-7-8 breathing technique for instant calm</p>
+          </div>
+          <div class="activity-card" onclick="startMeditation()">
+            <div class="activity-icon">🧘‍♀️</div>
+            <h4>Guided Meditation</h4>
+            <p>5-minute mindfulness session</p>
+          </div>
+          <div class="activity-card" onclick="playMusic()">
+            <div class="activity-icon">🎵</div>
+            <h4>Calming Music</h4>
+            <p>Soothing sounds for relaxation</p>
+          </div>
+          <div class="activity-card" onclick="showGratitude()">
+            <div class="activity-icon">🙏</div>
+            <h4>Gratitude Practice</h4>
+            <p>List things you're grateful for</p>
+          </div>
+          <div class="activity-card" onclick="showAffirmations()">
+            <div class="activity-icon">✨</div>
+            <h4>Daily Affirmations</h4>
+            <p>Positive thoughts to brighten your day</p>
+          </div>
+          <div class="activity-card" onclick="startExercise()">
+            <div class="activity-icon">🏃‍♀️</div>
+            <h4>Quick Exercise</h4>
+            <p>5-minute movement routine</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Journal Section -->
+      <section class="journal-section" id="journalSection">
+        <h2>Your Private Journal</h2>
+        <p style="color: var(--text-light); margin-bottom: 1rem">
+          🔒 Your entries are stored locally and completely private
+        </p>
+        <textarea
+          class="journal-textarea"
+          id="journalEntry"
+          placeholder="Write your thoughts here... How was your day? What's on your mind?"></textarea>
+        <button
+          class="save-btn"
+          onclick="saveJournalEntry()">
+          Save Entry
+        </button>
+        <h3 style="margin-top: 2rem">Previous Entries</h3>
+        <div id="journalEntries"></div>
+      </section>
+
+      <!-- Resources Section -->
+      <section id="resourcesSection" style="display: none">
+        <h2>Mental Health Resources</h2>
+        <div class="resources-list">
+          <div class="resource-item">
+            <div>
+              <h4>Understanding Anxiety</h4>
+              <p>Learn about anxiety symptoms and coping strategies</p>
+            </div>
+            <a href="#" class="resource-link">Read More →</a>
+          </div>
+          <div class="resource-item">
+            <div>
+              <h4>Stress Management Tips</h4>
+              <p>Effective techniques for managing academic stress</p>
+            </div>
+            <a href="#" class="resource-link">Read More →</a>
+          </div>
+          <div class="resource-item">
+            <div>
+              <h4>Sleep Hygiene Guide</h4>
+              <p>Improve your sleep quality with these tips</p>
+            </div>
+            <a href="#" class="resource-link">Read More →</a>
+          </div>
+          <div class="resource-item">
+            <div>
+              <h4>Building Resilience</h4>
+              <p>Develop mental strength and emotional flexibility</p>
+            </div>
+            <a href="#" class="resource-link">Read More →</a>
+          </div>
+          <div class="resource-item">
+            <div>
+              <h4>Campus Counseling Services</h4>
+              <p>Information about on-campus mental health support</p>
+            </div>
+            <a href="#" class="resource-link">Learn More →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Progress Section -->
+      <section id="progressSection" style="display: none">
+        <h2>Your Wellness Journey</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="streakDays">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="totalEntries">0</div>
+            <div class="stat-label">Journal Entries</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="moodCheckins">0</div>
+            <div class="stat-label">Mood Check-ins</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="activitiesCompleted">0</div>
+            <div class="stat-label">Activities Done</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem">Achievements</h3>
+        <div class="badges-container">
+          <div class="badge" id="firstSteps">🌱 First Steps</div>
+          <div class="badge" id="weekWarrior">💪 Week Warrior</div>
+          <div class="badge" id="moodMaster">😊 Mood Master</div>
+          <div class="badge locked" id="zenMaster">🧘 Zen Master</div>
+          <div class="badge locked" id="journalPro">📖 Journal Pro</div>
+        </div>
+
+        <h3 style="margin-top: 2rem">Overall Progress</h3>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+        </div>
+      </section>
+
+      <!-- Peer Support Section -->
+      <section id="peerSupportSection" style="display: none">
+        <h2>Anonymous Peer Support Groups</h2>
+        <p style="color: var(--text-light); margin-bottom: 2rem;">
+          🔒 All conversations are anonymous and confidential. Connect with fellow students who understand your experiences.
+        </p>
+        
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+          <button onclick="filterPeerTopics('all')" class="filter-btn active">All Topics</button>
+          <button onclick="filterPeerTopics('Academic')" class="filter-btn">Academic Stress</button>
+          <button onclick="filterPeerTopics('Social')" class="filter-btn">Social Issues</button>
+          <button onclick="filterPeerTopics('General')" class="filter-btn">General Support</button>
+          <button onclick="filterPeerTopics('Wellness')" class="filter-btn">Wellness Tips</button>
+        </div>
+        
+        <button onclick="createNewTopic()" class="new-topic-btn">
+          ✨ Start New Discussion
+        </button>
+        
+        <div id="peerTopicsList">
+          <div class="resource-item" style="cursor: pointer; margin-bottom: 1rem;">
+            <div>
+              <h4>Exam Anxiety Support</h4>
+              <p style="margin: 0.5rem 0;">Category: Academic • 23 replies</p>
+              <p style="font-size: 0.9rem; color: var(--text-light);">Last active: 2 hours ago • Anonymous</p>
+            </div>
+            <span class="resource-link">Join Discussion →</span>
+          </div>
+          <div class="resource-item" style="cursor: pointer; margin-bottom: 1rem;">
+            <div>
+              <h4>Feeling Overwhelmed - Need Advice</h4>
+              <p style="margin: 0.5rem 0;">Category: General • 15 replies</p>
+              <p style="font-size: 0.9rem; color: var(--text-light);">Last active: 30 minutes ago • Anonymous</p>
+            </div>
+            <span class="resource-link">Join Discussion →</span>
+          </div>
+          <div class="resource-item" style="cursor: pointer; margin-bottom: 1rem;">
+            <div>
+              <h4>Healthy Sleep Habits</h4>
+              <p style="margin: 0.5rem 0;">Category: Wellness • 18 replies</p>
+              <p style="font-size: 0.9rem; color: var(--text-light);">Last active: 4 hours ago • Anonymous</p>
+            </div>
+            <span class="resource-link">Join Discussion →</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Professional Consultation Section -->
+      <section id="consultationSection" style="display: none">
+        <h2>Professional Mental Health Consultation</h2>
+        <p style="color: var(--text-light); margin-bottom: 2rem;">
+          📞 Connect with licensed mental health professionals. All sessions are confidential and covered by student health services.
+        </p>
+        
+        <div class="stats-grid" style="margin-bottom: 2rem;">
+          <div class="stat-card" style="background: var(--bg-gradient);">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Crisis Support</div>
+          </div>
+          <div class="stat-card" style="background: linear-gradient(135deg, var(--calm-green), #10b981);">
+            <div class="stat-number">Free</div>
+            <div class="stat-label">For Students</div>
+          </div>
+          <div class="stat-card" style="background: linear-gradient(135deg, var(--accent-color), #f59e0b);">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Confidential</div>
+          </div>
+        </div>
+        
+        <h3>Available Counselors</h3>
+        <div class="counselors-list">
+          <div class="counselor-card">
+            <div class="counselor-info">
+              <h4>Dr. Sarah Johnson</h4>
+              <p class="specialization">Anxiety and Stress Management</p>
+              <p class="availability">Available: Mon 2-5pm, Wed 10am-2pm, Fri 1-4pm</p>
+              <div class="rating">⭐⭐⭐⭐⭐ 4.9/5</div>
+            </div>
+            <button class="book-btn" onclick="bookConsultation('Dr. Sarah Johnson')">Book Session</button>
+          </div>
+          
+          <div class="counselor-card">
+            <div class="counselor-info">
+              <h4>Dr. Michael Chen</h4>
+              <p class="specialization">Depression and Mood Disorders</p>
+              <p class="availability">Available: Tue 9am-12pm, Thu 2-6pm</p>
+              <div class="rating">⭐⭐⭐⭐⭐ 4.8/5</div>
+            </div>
+            <button class="book-btn" onclick="bookConsultation('Dr. Michael Chen')">Book Session</button>
+          </div>
+          
+          <div class="counselor-card">
+            <div class="counselor-info">
+              <h4>Dr. Emily Rodriguez</h4>
+              <p class="specialization">Crisis Intervention</p>
+              <p class="availability">Available 24/7 for emergencies</p>
+              <div class="rating">⭐⭐⭐⭐⭐ 5.0/5</div>
+            </div>
+            <button class="book-btn emergency" onclick="bookEmergencyConsultation('Dr. Emily Rodriguez')">Emergency Session</button>
+          </div>
+        </div>
+        
+        <div class="notice-box">
+          <h4>⚠️ Important Notice</h4>
+          <p>
+            This platform provides supportive resources but is not a substitute for professional medical care. 
+            If you're experiencing a mental health emergency, please contact emergency services immediately.
+          </p>
+        </div>
+      </section>
+
+      <!-- Self-Assessment Section -->
+      <section id="assessmentSection" style="display: none">
+        <h2>Self-Assessment Tools</h2>
+        <p style="color: var(--text-light); margin-bottom: 2rem;">
+          📋 These evidence-based assessments help you understand your mental health status. Results are private and can guide your wellness journey.
+        </p>
+        
+        <div class="assessment-grid">
+          <div class="assessment-card" onclick="startAssessment('anxiety')">
+            <div class="assessment-icon">😰</div>
+            <h4>Anxiety Assessment</h4>
+            <p>GAD-7 standardized questionnaire for anxiety levels</p>
+            <div class="assessment-info">
+              <span class="duration">⏱️ 5 minutes</span>
+              <span class="questions">7 questions</span>
+            </div>
+          </div>
+          
+          <div class="assessment-card" onclick="startAssessment('depression')">
+            <div class="assessment-icon">😔</div>
+            <h4>Depression Screening</h4>
+            <p>PHQ-9 assessment for depression symptoms</p>
+            <div class="assessment-info">
+              <span class="duration">⏱️ 5 minutes</span>
+              <span class="questions">9 questions</span>
+            </div>
+          </div>
+          
+          <div class="assessment-card" onclick="startAssessment('stress')">
+            <div class="assessment-icon">🤯</div>
+            <h4>Stress Level Check</h4>
+            <p>Perceived Stress Scale for academic stress</p>
+            <div class="assessment-info">
+              <span class="duration">⏱️ 3 minutes</span>
+              <span class="questions">10 questions</span>
+            </div>
+          </div>
+          
+          <div class="assessment-card" onclick="startAssessment('wellness')">
+            <div class="assessment-icon">🌈</div>
+            <h4>Overall Wellbeing</h4>
+            <p>Comprehensive mental health check-in</p>
+            <div class="assessment-info">
+              <span class="duration">⏱️ 8 minutes</span>
+              <span class="questions">15 questions</span>
+            </div>
+          </div>
+        </div>
+        
+        <div id="assessmentHistory" style="margin-top: 2rem;">
+          <h3>Your Assessment History</h3>
+          <p style="color: var(--text-light);">Complete an assessment to see your results and track progress over time.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+      <button class="chat-toggle" onclick="toggleChat()">💬</button>
+      <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+          <span>MindfulB
